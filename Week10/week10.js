@@ -32,12 +32,11 @@ console.log(multiply(4,2));
 
 //Задание 4
 // Напишите функцию greet, которая принимает один параметр name и выводит в консоль приветствие с этим именем.
-let name = 'Alice';
 
 function greet(name) {
-	return console.log(`Привет, ${name}!`); 
+	console.log(`Привет, ${name}!`); 
 }
-greet (name); //почему здесь зачеркивается name??
+greet ('Alice');
 
 //Задание 5
 // Напишите функцию calculateArea, которая принимает два параметра width и height, вычисляет площадь прямоугольника и выводит в консоль результат.
@@ -80,16 +79,30 @@ secondFunction(2, 3); //Выведет 5
 // let f = 2;
 // let g = 3;
 
-function thirdFunction(f = 2, g = 3) {
-	if (g === undefined) {
+// function thirdFunction(f = 2, g = f || 3) {
+// 	console.log(f * g);
+// }
+
+// thirdFunction(); //Выведет 4 (2*2) -> почему не 2*3? я же ни одно значение не передала, почему функция не берет значения по умолчанию?
+// thirdFunction(4); //выводит 16 (4*4)
+// thirdFunction(10, 5); //выводит 50
+
+//или
+
+function thirdFunction(f, g) {
+		if (g === undefined) {
 		g = f;
-	  }
-	  return console.log(f * g);
+	}
+	if (f === undefined) {
+		f = 2;
+		g = 3;
+	}
+	console.log(f * g);
 }
 
-thirdFunction(); //Выведет 6
-thirdFunction(4); //все равно выводит 12 вместо 16 (4*4), не понимаю почему if не срабатывает :(
-thirdFunction(10, 5); //выводит 50
+thirdFunction(); //Выводит 6 (2*3)
+thirdFunction(4); //выводит 16 (4*4)
+thirdFunction(10, 5); //выводит 50 (10*5)
 
 //Обратите ваше внимание, что мы можем передать в функцию любые аргументы и thirdFunction подставит их на место параметров соответственно (если пармаметр не задан, то он подставится по умлочанию), перемножит их и вернёт результат.
 
@@ -157,17 +170,31 @@ findAnimal();
 //Задание 15
 // Допишите программу, которая вычисляет сколько лет прошло с летней олимпиады в Токио, Япония. Подсказка: 1. нужно создать переменную с текущим годом. 2. при вызове функции в круглые скобки нужно передать два параметра: текущий год и год летней олимпиады в Токио.
 
-const lastOlympicsYear = 2021;
-let currentYear = 2023;
+// const lastOlympicsYear = 2021;
+// let currentYear = 2023;
 
-function calculateYearsSinceLastOlympics(a, b) {
-	console.log(
-		'С момента летней олимпиады в Токио прошло ' + (a-b) + ' года',
-	);
+// function calculateYearsSinceLastOlympics(a, b) {
+// 	console.log(
+// 		'С момента летней олимпиады в Токио прошло ' + (a-b) + ' года',
+// 	);
+// }
+
+// calculateYearsSinceLastOlympics (currentYear, lastOlympicsYear);
+
+//решение Кота
+const lastOlympicsYear = 2021;
+const currentYear = new Date().getFullYear()
+
+function calculateYearsSinceLastOlympics(currentYear, lastOlympicsYear) {
+	return currentYear - lastOlympicsYear;
 }
+console.log(
+	'С момента летней олимпиады в Токио прошло ' + calculateYearsSinceLastOlympics(currentYear, lastOlympicsYear) + ' года',
+);
+
+console.log(currentYear);
 
 calculateYearsSinceLastOlympics (currentYear, lastOlympicsYear);
-
 
 // //Задание 16
 // // Напишите программу, которая вычисляет возраст пользователя на основе его года рождения, будет выводить результат в консоль.
